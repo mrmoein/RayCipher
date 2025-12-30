@@ -4,6 +4,10 @@
 
 ### [https://mrmoein.github.io/RayCipher](https://mrmoein.github.io/RayCipher)
 
+## تصویر 🖼
+
+![screenshot](screenshot.png)
+
 ## امکانات اصلی ✨
 
 🔑 کلید اختیاری برای رمزگذاری (Password)
