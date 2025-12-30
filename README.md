@@ -4,7 +4,7 @@
 
 ### [https://mrmoein.github.io/RayCipher](https://mrmoein.github.io/RayCipher)
 
-## تصویر 🖼
+## تصویر 🖼️
 
 ![screenshot](screenshot.png)
 
