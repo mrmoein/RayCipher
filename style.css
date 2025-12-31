@@ -25,6 +25,11 @@
     font-display: swap;
 }
 
+html, body {
+    width: 100%;
+    overflow-x: hidden;
+}
+
 body, button, textarea, input, h1, h2, h3, h4, h5, h6 {
     font-family: 'Vazirmatn', sans-serif;
 }
@@ -32,10 +37,9 @@ body, button, textarea, input, h1, h2, h3, h4, h5, h6 {
 body {
     background-color: var(--background-color);
     color: var(--text-color);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    align-items: center;
     min-height: 100vh;
     margin: 0;
     font-size: 16px;
@@ -45,11 +49,13 @@ body {
     width: 90%;
     max-width: 600px;
     text-align: center;
+    margin: auto;
+    flex: 1;
 }
 
 header h1 {
     font-size: 2rem;
-    margin-bottom: 0rem;
+    margin-bottom: 0;
 }
 
 .tabs {
@@ -160,16 +166,6 @@ button:disabled {
     font-size: 0.9rem;
 }
 
-.result-box button {
-    position: absolute;
-    top: 0.5rem;
-    right: 0.5rem;
-    margin: 0;
-    padding: 0.25rem 0.5rem;
-    font-size: 0.8rem;
-    background-color: #222;
-}
-
 #install-btn {
     margin-bottom: 2rem;
     width: 90%;
@@ -181,8 +177,49 @@ button:disabled {
     cursor: pointer;
 }
 
-#encode-input, #decode-input {
+#encode-input,
+#decode-input {
     min-height: 200px;
     max-width: 100%;
     min-width: 100%;
+}
+
+.footer {
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 0.75rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--background-color);
+    border-top: 1px solid var(--border-color);
+    font-size: 0.85rem;
+    opacity: 0.8;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.footer img {
+    width: 22px;
+    height: 22px;
+    filter: invert(1);
+}
+
+.encode-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.encode-actions button {
+    flex: 1;
+}
+
+#encode-regenerate {
+    flex: 0 0 48px;
+    padding: 0;
+    font-size: 1.2rem;
 }

@@ -16,7 +16,6 @@
 
   <header>
     <h1>فارسی ساز کانفیگ</h1>
-    <span>ورژن 2.0.3</span>
   </header>
 
   <input type="text" id="cryptoPassword" placeholder="کلید" />
@@ -32,7 +31,10 @@
       <div class="result-box">
         <pre id="encode-output"></pre>
       </div>
-      <button id="encode-copy" disabled>کپی</button>
+      <div class="encode-actions">
+        <button id="encode-copy" disabled>کپی</button>
+        <button id="encode-regenerate" disabled>↻</button>
+      </div>
     </div>
 
     <div id="decode" class="tab-content">
@@ -49,7 +51,14 @@
   </div>
 </div>
 
+
+<footer class="footer">
+  <span class="version"></span>
+  <a href="https://github.com/mrmoein/RayCipher" target="_blank">
+    <img src="./assets/github.svg" alt="GitHub">
+  </a>
+</footer>
+
 <script src="script.js"></script>
 </body>
-
 </html>
