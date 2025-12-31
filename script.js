@@ -1,5 +1,8 @@
 const BASE32 = "abcdefghijklmnopqrstuvwxyz234567";
 
+// کاراکترهای مجاز فارسی برای حالت fa-only (دقیقا 32 کاراکتر)
+const FA32 = "ابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی";
+
 function bytesToBase32(bytes) {
     let bits = 0, value = 0, out = "";
     for (const b of bytes) {
@@ -96,17 +99,15 @@ async function decrypt(text, password) {
 }
 
 const TO_FA_DEFAULT = {
-    a:"ش",b:"ل",c:"ض",d:"ب",e:"ع",f:"گ",g:"و",h:"ظ",
-    i:"س",j:"ژ",k:"ک",l:"م",m:"ن",n:"پ",o:"غ",p:"ح",
-    q:"ز",r:"ط",s:"ر",t:"ق",u:"ث",v:"ف",w:"ی",x:"د",
-    y:"ذ",z:"خ","2":"۲","3":"۳","4":"۴","5":"۵","6":"۶","7":"۷"
+    a: "ش", b: "ل", c: "ض", d: "ب", e: "ع", f: "گ", g: "و", h: "ظ",
+    i: "س", j: "ژ", k: "ک", l: "م", m: "ن", n: "پ", o: "غ", p: "ح",
+    q: "ز", r: "ط", s: "ر", t: "ق", u: "ث", v: "ف", w: "ی", x: "د",
+    y: "ذ", z: "خ", "2": "۲", "3": "۳", "4": "۴", "5": "۵", "6": "۶", "7": "۷"
 };
 
 const TO_EN_DEFAULT = Object.fromEntries(
     Object.entries(TO_FA_DEFAULT).map(([k, v]) => [v, k])
 );
-
-const FA32 = "ابتثجچحخدذرزسشصضطظعغفقکگلمنوهی";
 
 function encodeByMode(raw, mode) {
     if (mode === "en-only") return raw;
@@ -121,8 +122,19 @@ function encodeByMode(raw, mode) {
 }
 
 function decodeByMode(input, mode) {
+    input = input
+        .replace(/\s+/g, "")
+        .replace(/\u200c/g, "")
+        .replace(/ي/g, "ی")
+        .replace(/ك/g, "ک")
+        .replace(/[آأإ]/g, "ا");
+
     if (mode === "en-only") return input;
-    if (mode === "default") return input.split("").map(c => TO_EN_DEFAULT[c] || c).join("");
+
+    if (mode === "default") {
+        return input.split("").map(c => TO_EN_DEFAULT[c] || c).join("");
+    }
+
     if (mode === "fa-only") {
         return input.split("").map(c => {
             const i = FA32.indexOf(c);
@@ -150,8 +162,29 @@ document.addEventListener("DOMContentLoaded", () => {
     const decodeError = document.getElementById("decode-error");
 
     const algoHint = document.getElementById("algoHint");
+    const installBtn = document.getElementById("install-btn");
+
+    encodeRegenerate.style.aspectRatio = "1";
 
     let lastEncodedMapped = "";
+    let deferredPrompt;
+
+    // PWA Install Prompt Logic
+    window.addEventListener("beforeinstallprompt", (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        installBtn.hidden = false;
+    });
+
+    installBtn.addEventListener("click", async () => {
+        if (!deferredPrompt) return;
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        if (outcome === "accepted") {
+            installBtn.hidden = true;
+        }
+        deferredPrompt = null;
+    });
 
     const setDirectionByAlgo = () => {
         const isFa = algoSelect.value !== "en-only";
@@ -168,14 +201,20 @@ document.addEventListener("DOMContentLoaded", () => {
         if (v === "en-only") algoHint.textContent = "سازگار: انگلیسی + عدد، معمولاً برای SMS بهتر است";
     };
 
+    const updateRegenerateState = () => {
+        const hasKey = pass.value.length > 0;
+        const hasContent = encodeInput.value.length > 0;
+        encodeRegenerate.disabled = !hasKey || !hasContent;
+    };
+
     const runEncode = async () => {
         try {
             setDirectionByAlgo();
+            updateRegenerateState();
             if (!encodeInput.value) {
                 lastEncodedMapped = "";
                 encodeOutput.textContent = "";
                 encodeCopy.disabled = true;
-                encodeRegenerate.disabled = true;
                 return;
             }
             const raw = await encrypt(encodeInput.value, pass.value);
@@ -183,12 +222,10 @@ document.addEventListener("DOMContentLoaded", () => {
             lastEncodedMapped = mapped;
             encodeOutput.textContent = mapped;
             encodeCopy.disabled = false;
-            encodeRegenerate.disabled = false;
         } catch {
             lastEncodedMapped = "";
             encodeOutput.textContent = "";
             encodeCopy.disabled = true;
-            encodeRegenerate.disabled = true;
         }
     };
 
@@ -201,10 +238,20 @@ document.addEventListener("DOMContentLoaded", () => {
                 decodeCopy.disabled = true;
                 return;
             }
+
             const raw = decodeByMode(decodeInput.value, algoSelect.value);
+
+            // جلوگیری از اجرای دیکود روی متن‌های ناقص یا خیلی کوتاه
+            // حداقل طول باید مقداری منطقی باشد تا از ارور کنسول جلوگیری شود
+            if (raw.length < 10) {
+                return;
+            }
+
             decodeOutput.textContent = await decrypt(raw, pass.value);
             decodeCopy.disabled = false;
-        } catch {
+        } catch (e) {
+            // ارور را فقط وقتی نشان بده که واقعا متن کامل وارد شده اما اشتباه است
+            // لاگ کنسول را حذف کردیم تا مزاحم نباشد
             decodeOutput.textContent = "";
             decodeCopy.disabled = true;
             decodeError.style.display = "block";
@@ -220,7 +267,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (id === "encode" && lastEncodedMapped) {
                 encodeOutput.textContent = lastEncodedMapped;
                 encodeCopy.disabled = false;
-                encodeRegenerate.disabled = false;
+                updateRegenerateState();
             }
         });
     });
@@ -256,10 +303,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
     setHint();
     setDirectionByAlgo();
+    updateRegenerateState();
 });
 
 if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("sw.js");
+    navigator.serviceWorker.register("sw.js").then(reg => {
+        reg.addEventListener("updatefound", () => {
+            const newWorker = reg.installing;
+            newWorker.addEventListener("statechange", () => {
+                if (newWorker.state === "installed" && navigator.serviceWorker.controller) {
+                    if (confirm("نسخه جدید موجود است. آیا می‌خواهید بروزرسانی کنید؟")) {
+                        window.location.reload();
+                    }
+                }
+            });
+        });
+    });
+
     if (navigator.serviceWorker.controller) {
         navigator.serviceWorker.controller.postMessage("GET_VERSION");
     }

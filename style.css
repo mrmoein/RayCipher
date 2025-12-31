@@ -174,14 +174,18 @@ select:focus {
     margin-top: 1rem;
 }
 
-.encode-actions button {
+#encode-copy {
     flex: 1;
 }
 
 #encode-regenerate {
+    flex: 0 0 48px;
     width: 48px;
-    min-width: 48px;
+    height: 48px;
     padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-size: 1.2rem;
 }
 
@@ -211,7 +215,7 @@ button:disabled {
 }
 
 #install-btn {
-    margin-bottom: 2rem;
+    margin: 2rem 0;
     width: 90%;
     padding: 1rem 0;
     font-weight: 600;
@@ -251,4 +255,90 @@ button:disabled {
 .dir-ltr {
     direction: ltr;
     text-align: left;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 0.75rem;
+    margin: 2rem 0 1rem 0;
+    direction: rtl;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.feature-item {
+    background-color: var(--input-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 0.2s;
+}
+
+.feature-item:hover {
+    border-color: var(--accent-color);
+}
+
+.feature-icon {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.feature-text {
+    font-weight: 700;
+    font-size: 0.85rem;
+    margin-bottom: 0.25rem;
+    color: var(--text-color);
+}
+
+.feature-sub {
+    font-size: 0.7rem;
+    opacity: 0.6;
+    line-height: 1.4;
+}
+
+@media (max-width: 480px) {
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .feature-item {
+        display: grid;
+        grid-template-columns: min-content 1fr;
+        grid-template-rows: auto auto;
+        grid-template-areas:
+            "icon title"
+            "icon sub";
+
+        gap: 0 0.75rem;
+        padding: 0.75rem 1rem;
+        text-align: right;
+        align-items: center;
+    }
+
+    .feature-icon {
+        grid-area: icon;
+        margin: 0;
+        font-size: 1.8rem;
+        display: flex;
+        align-items: center;
+        height: 100%;
+    }
+
+    .feature-text {
+        grid-area: title;
+        margin: 0;
+        align-self: end;
+    }
+
+    .feature-sub {
+        grid-area: sub;
+        margin: 0;
+        align-self: start;
+        padding-top: 2px;
+    }
 }

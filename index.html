@@ -2,76 +2,93 @@
 <html lang="en" dir="rtl">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RayCipher - فارسی‌ساز کانفیگ</title>
-  <link rel="stylesheet" href="./style.css">
-  <link rel="icon" type="image/x-icon" href="./assets/favicon.ico">
-  <link rel="manifest" href="./manifest.json">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RayCipher - رمز کننده کانفیگ</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="icon" type="image/x-icon" href="./assets/favicon.ico">
+    <link rel="manifest" href="./manifest.json">
 </head>
 
 <body>
 <div class="container">
-  <button id="install-btn" hidden>نصب برنامه</button>
+    <button id="install-btn" hidden>نصب برنامه</button>
 
-  <header>
-    <h1>فارسی ساز کانفیگ</h1>
-  </header>
+    <header>
+        <h1>RayCipher - رمز کننده کانفیگ</h1>
+    </header>
 
-  <div class="settings">
-    <div class="label">کلید(اختیاری)</div>
-    <input type="text" id="cryptoPassword" />
+    <div class="settings">
+        <div class="label">کلید(اختیاری)</div>
+        <input type="text" id="cryptoPassword"/>
 
-    <div class="label">حالت خروجی</div>
-    <select id="algoSelect">
-      <option value="default" selected>پیش‌فرض (فارسی + عدد)</option>
-      <option value="fa-only">خوانا (فقط فارسی)</option>
-      <option value="en-only">سازگار (انگلیسی + عدد)</option>
-    </select>
+        <div class="label">حالت خروجی</div>
+        <select id="algoSelect">
+            <option value="default" selected>پیش‌فرض (فارسی + عدد)</option>
+            <option value="fa-only">خوانا (فقط فارسی)</option>
+            <option value="en-only">سازگار (انگلیسی + عدد)</option>
+        </select>
 
-    <div id="algoHint" class="hint">پیش‌فرض: مناسب برای اکثر پیام‌رسان‌ها</div>
-  </div>
-
-
-  <div class="tabs">
-    <button class="tab-button active" data-tab="encode">قاطی کردن</button>
-    <button class="tab-button" data-tab="decode">باز کردن</button>
-  </div>
-
-  <div class="content">
-    <div id="encode" class="tab-content active">
-      <div class="label">آدرس کانفیگ رو وارد کن</div>
-      <textarea id="encode-input"></textarea>
-      <div class="result-box">
-        <pre id="encode-output"></pre>
-      </div>
-      <div class="encode-actions">
-        <button id="encode-copy" disabled>کپی</button>
-        <button id="encode-regenerate" disabled>↻</button>
-      </div>
+        <div id="algoHint" class="hint">پیش‌فرض: مناسب برای اکثر پیام‌رسان‌ها</div>
     </div>
 
-    <div id="decode" class="tab-content">
-      <div class="label">آدرس قاطی شده رو وارد کن</div>
-      <textarea id="decode-input" ></textarea>
-      <div class="result-box">
-        <pre id="decode-output"></pre>
-      </div>
-      <p id="decode-error" style="color:#ff4d4d; display:none; margin-top:0.5rem;">
-         مقدار کلید، حالت خرجی یا محتوا اشتباه است!
-      </p>
-      <button id="decode-copy" disabled>کپی</button>
+
+    <div class="tabs">
+        <button class="tab-button active" data-tab="encode">قاطی کردن</button>
+        <button class="tab-button" data-tab="decode">باز کردن</button>
     </div>
 
-  </div>
+    <div class="content">
+        <div id="encode" class="tab-content active">
+            <div class="label">آدرس کانفیگ رو وارد کن</div>
+            <textarea id="encode-input"></textarea>
+            <div class="result-box">
+                <pre id="encode-output"></pre>
+            </div>
+            <div class="encode-actions">
+                <button id="encode-copy" disabled>کپی</button>
+                <button id="encode-regenerate" style="aspect-ratio: 1;" disabled>↻</button>
+            </div>
+        </div>
+
+        <div id="decode" class="tab-content">
+            <div class="label">آدرس قاطی شده رو وارد کن</div>
+            <textarea id="decode-input"></textarea>
+            <div class="result-box">
+                <pre id="decode-output"></pre>
+            </div>
+            <p id="decode-error" style="color:#ff4d4d; display:none; margin-top:0.5rem;">
+                مقدار کلید، حالت خروجی یا محتوا اشتباه است!
+            </p>
+            <button id="decode-copy" disabled>کپی</button>
+        </div>
+
+    </div>
+
+    <div class="features-grid">
+        <div class="feature-item">
+            <div class="feature-icon">📡</div>
+            <div class="feature-text">بدون نیاز به اینترنت</div>
+            <div class="feature-sub">حتی با قطع نت کار می‌کند</div>
+        </div>
+        <div class="feature-item">
+            <div class="feature-icon">🔒</div>
+            <div class="feature-text">کاملا امن و محلی</div>
+            <div class="feature-sub">بدون ارسال دیتا به سرور</div>
+        </div>
+        <div class="feature-item">
+            <div class="feature-icon">⚡</div>
+            <div class="feature-text">نصب آسان</div>
+            <div class="feature-sub">یکبار نصب کن، آفلاین استفاده کن</div>
+        </div>
+    </div>
 </div>
 
-
 <footer class="footer">
-  <span class="version"></span>
-  <a href="https://github.com/mrmoein/RayCipher" target="_blank">
-    <img src="./assets/github.svg" alt="GitHub">
-  </a>
+    <span class="version"></span>
+    <a href="https://github.com/mrmoein/RayCipher" target="_blank">
+        <img src="./assets/github.svg" alt="GitHub">
+    </a>
 </footer>
 
 <script src="script.js"></script>
