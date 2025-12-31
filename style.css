@@ -151,7 +151,7 @@ select:focus {
 }
 
 .result-box {
-    margin-top: 1rem;
+    margin-top: 0.5rem;
     background-color: var(--result-bg);
     border: 1px solid var(--border-color);
     border-radius: 6px;
