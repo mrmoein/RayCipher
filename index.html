@@ -6,8 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RayCipher - فارسی‌ساز کانفیگ</title>
   <link rel="stylesheet" href="style.css">
-  <link rel="icon" type="image/x-icon" href="./assets/favicon.ico">
-  <link rel="manifest" href="./manifest.json">
+  <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+  <link rel="manifest" href="/manifest.json">
 </head>
 
 <body>
@@ -18,7 +18,20 @@
     <h1>فارسی ساز کانفیگ</h1>
   </header>
 
-  <input type="text" id="cryptoPassword" placeholder="کلید(اختیاری)" />
+  <div class="settings">
+    <div class="label">کلید(اختیاری)</div>
+    <input type="text" id="cryptoPassword" />
+
+    <div class="label">حالت خروجی</div>
+    <select id="algoSelect">
+      <option value="default" selected>پیش‌فرض (فارسی + عدد)</option>
+      <option value="fa-only">خوانا (فقط فارسی)</option>
+      <option value="en-only">سازگار (انگلیسی + عدد)</option>
+    </select>
+
+    <div id="algoHint" class="hint">پیش‌فرض: مناسب برای اکثر پیام‌رسان‌ها</div>
+  </div>
+
 
   <div class="tabs">
     <button class="tab-button active" data-tab="encode">قاطی کردن</button>
@@ -27,7 +40,8 @@
 
   <div class="content">
     <div id="encode" class="tab-content active">
-      <textarea id="encode-input" placeholder="آدرس کانفیگ رو وارد کن..."></textarea>
+      <div class="label">آدرس کانفیگ رو وارد کن</div>
+      <textarea id="encode-input"></textarea>
       <div class="result-box">
         <pre id="encode-output"></pre>
       </div>
@@ -38,12 +52,13 @@
     </div>
 
     <div id="decode" class="tab-content">
-      <textarea id="decode-input" placeholder="آدرس قاطی شده رو وارد کن..."></textarea>
+      <div class="label">آدرس قاطی شده رو وارد کن</div>
+      <textarea id="decode-input" ></textarea>
       <div class="result-box">
         <pre id="decode-output"></pre>
       </div>
       <p id="decode-error" style="color:#ff4d4d; display:none; margin-top:0.5rem;">
-        کلید اشتباه است یا متن معتبر نیست
+         مقدار کلید، حالت خرجی یا محتوا اشتباه است!
       </p>
       <button id="decode-copy" disabled>کپی</button>
     </div>
@@ -55,7 +70,7 @@
 <footer class="footer">
   <span class="version"></span>
   <a href="https://github.com/mrmoein/RayCipher" target="_blank">
-    <img src="./assets/github.svg" alt="GitHub">
+    <img src="/assets/github.svg" alt="GitHub">
   </a>
 </footer>
 
