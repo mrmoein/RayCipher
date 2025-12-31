@@ -1,4 +1,4 @@
-const VERSION = "2.1.2";
+const VERSION = "2.1.3";
 const CACHE_NAME = `cipher-ray-${VERSION}`;
 
 self.addEventListener("install", event => {
@@ -6,19 +6,19 @@ self.addEventListener("install", event => {
 	event.waitUntil(
 		caches.open(CACHE_NAME).then(cache =>
 			cache.addAll([
-				"/",
-				"/index.html",
-				"/style.css",
-				"/script.js",
-				"/manifest.json",
-				"/sw.js",
-				"/assets/favicon.ico",
-				"/assets/Vazirmatn-Bold.woff2",
-				"/assets/Vazirmatn-Regular.woff2",
-				"/assets/icon-180.png",
-				"/assets/icon-192.png",
-				"/assets/icon-512.png",
-				"/assets/github.svg"
+				"./",
+				"./index.html",
+				"./style.css",
+				"./script.js",
+				"./manifest.json",
+				"./sw.js",
+				"./assets/favicon.ico",
+				"./assets/Vazirmatn-Bold.woff2",
+				"./assets/Vazirmatn-Regular.woff2",
+				"./assets/icon-180.png",
+				"./assets/icon-192.png",
+				"./assets/icon-512.png",
+				"./assets/github.svg"
 			])
 		)
 	);
