@@ -2,7 +2,7 @@
 	"name": "RayCipher",
 	"start_url": "/RayCipher",
 	"display": "standalone",
-	"version": "2.0.4",
+	"version": "2.0.5",
 	"icons": [
 		{
 			"src": "assets/favicon.ico",
