@@ -256,11 +256,13 @@ if ("serviceWorker" in navigator) {
     navigator.serviceWorker.register("sw.js");
 }
 
-fetch("./manifest.json")
-    .then(r => r.json())
-    .then(m => {
-        const v = document.querySelector(".version");
-        if (v && !v.textContent) {
-            v.textContent = `ورژن ${m.version}`;
-        }
-    });
+if (navigator.serviceWorker.controller) {
+    navigator.serviceWorker.controller.postMessage("GET_VERSION");
+}
+
+navigator.serviceWorker.addEventListener("message", e => {
+    if (e.data?.version) {
+        document.querySelector(".version").textContent = `ورژن ${e.data.version}`;
+    }
+});
+
