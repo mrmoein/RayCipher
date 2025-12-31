@@ -22,7 +22,7 @@
 
 ## تصویر 🖼️
 
-![screenshot](screenshot.png?&v=1)
+![screenshot](screenshot.png?v=1)
 
 ## نحوه استفاده 🧭
 
