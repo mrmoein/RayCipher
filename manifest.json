@@ -3,6 +3,8 @@
 	"short_name": "RayCipher",
 	"start_url": "./index.html",
 	"display": "standalone",
+	"background_color": "#262626",
+	"theme_color": "#262626",
 	"orientation": "portrait",
 	"icons": [
 		{
