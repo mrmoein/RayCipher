@@ -1,6 +1,5 @@
 const BASE32 = "abcdefghijklmnopqrstuvwxyz234567";
 
-// کاراکترهای مجاز فارسی برای حالت fa-only (دقیقا 32 کاراکتر)
 const FA32 = "ابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی";
 
 function bytesToBase32(bytes) {
@@ -169,7 +168,6 @@ document.addEventListener("DOMContentLoaded", () => {
     let lastEncodedMapped = "";
     let deferredPrompt;
 
-    // PWA Install Prompt Logic
     window.addEventListener("beforeinstallprompt", (e) => {
         e.preventDefault();
         deferredPrompt = e;
@@ -241,8 +239,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const raw = decodeByMode(decodeInput.value, algoSelect.value);
 
-            // جلوگیری از اجرای دیکود روی متن‌های ناقص یا خیلی کوتاه
-            // حداقل طول باید مقداری منطقی باشد تا از ارور کنسول جلوگیری شود
             if (raw.length < 10) {
                 return;
             }
@@ -250,8 +246,6 @@ document.addEventListener("DOMContentLoaded", () => {
             decodeOutput.textContent = await decrypt(raw, pass.value);
             decodeCopy.disabled = false;
         } catch (e) {
-            // ارور را فقط وقتی نشان بده که واقعا متن کامل وارد شده اما اشتباه است
-            // لاگ کنسول را حذف کردیم تا مزاحم نباشد
             decodeOutput.textContent = "";
             decodeCopy.disabled = true;
             decodeError.style.display = "block";
