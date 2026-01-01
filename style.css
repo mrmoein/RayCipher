@@ -55,7 +55,7 @@ header h1 {
 }
 
 .settings {
-    margin-top: 1.5rem;
+    margin-top: 2rem;
     text-align: right;
 }
 
@@ -217,13 +217,21 @@ button:disabled {
 }
 
 #install-btn {
-    margin: 2rem 0;
-    width: 90%;
-    padding: 1rem 0;
-    font-weight: 600;
-    background: #eee;
-    color: #000;
-    border-radius: 8px;
+    margin: 0.5rem 0;
+    padding: 0.4rem 0.9rem;
+    font-size: 0.8rem;
+    font-weight: 400;
+    background: transparent;
+    color: #aaa;
+    border: 1px dashed #444;
+    border-radius: 999px;
+    opacity: 0.7;
+}
+
+#install-btn:hover {
+    opacity: 1;
+    color: #fff;
+    border-color: #666;
 }
 
 .footer {
@@ -362,4 +370,8 @@ select {
     background-size: 1rem;
     padding-left: 2.5rem;
     cursor: pointer;
+}
+
+.header-hint{
+    color: #fff865;
 }

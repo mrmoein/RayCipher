@@ -1,4 +1,4 @@
-const VERSION = "2.1.17";
+const VERSION = "2.2.0";
 const CACHE_NAME = `cipher-ray-${VERSION}`;
 
 self.addEventListener("install", event => {
